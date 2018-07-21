@@ -1,13 +1,25 @@
+/*The cards exist solely in the js, so we'll need
+to take advantage of the dev tools to edit those
+the text of word quality should be the roboto and the
+text of the actual quality rating should be sans*/
+
+
+
+
+
+
 .container {
     display: flex;
     flex-direction: column;
     font-family: 'Roboto Slab', serif;
 }
 
+/*what is this?*/
 .container-box {
     margin: 0;
 }
 
+/*this should probabaly be at the top*/
 body {
     box-sizing: border-box;
     margin: 0;
@@ -16,12 +28,13 @@ body {
 .top-box {
     background-color: #e5f3f2;
     box-sizing: border-box;
+    /*may not want to use pixels*/
     height: 300px;
     margin: 0;
     text-align: center;
 }
 
-h1{
+h1 {
     color: #6d6e71;
     display: inline-block;
     font-size: 275%;
@@ -89,7 +102,7 @@ input {
     width: 45%;
 }
 
-.title-of-card{
+.title-of-card {
     color: #6D6E71;
     display: inline-block;
     font-family: 'Roboto Slab', serif;
@@ -108,7 +121,7 @@ p {
     font-family: 'Open Sans', sans-serif;
 }
 
-.body-of-card{
+.body-of-card {
     color: #939598;
     font-family: 'Open Sans', sans-serif;
     font-size: 100%;
