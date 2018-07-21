@@ -3,12 +3,14 @@
 
 $('.save-btn').on('click', createIdea);
 $('.bottom-box').on('click', '.upvote', upvoteFunc);
-// $('.downvote').on('click', downvoteFunc);
+$('.bottom-box').on('click', '.downvote', downvoteFunc);
+$('.bottom-box').on('click', '.delete-button', deleteFunc);
 
 pageLoadDisplay();
 
 function pageLoadDisplay() {
     var storedIdeasArray = fetchArray();
+    $('.bottom-box').text('');
     storedIdeasArray.forEach(function(card) {
         prependCard(card);
     })
@@ -28,7 +30,7 @@ function createIdea(e) {
     var bodyInput = $('#body-input').val();
     newIdeaCard = new createCardObject(titleInput, bodyInput);
     storedIdeasArray.push(newIdeaCard);
-    createLocalStorageArray(storedIdeasArray);
+    writeLocalStorageArray(storedIdeasArray);
     prependCard(newIdeaCard);
 }
 
@@ -39,28 +41,28 @@ function createCardObject(title, body) {
     this.id = Date.now();
 }
 
-function createLocalStorageArray(objectArray) {
+function writeLocalStorageArray(objectArray) {
   var stringedObjectArray = JSON.stringify(objectArray);
   localStorage.setItem('stored-array', stringedObjectArray);
 }
 
 function prependCard(cardObject) {
     var thisNewCard = newCard(cardObject.id, cardObject.title, cardObject.body, cardObject.quality);
-    $( ".bottom-box" ).prepend(thisNewCard);
+    $('.bottom-box').prepend(thisNewCard);
 }
 
 function newCard(id , title , body , quality) {
     var currentQuality = setQualityRating(quality);
     return '<div data-unid=' + id + ' class="card-container"><h2 class="title-of-card">'  
-            + title +  '</h2>'
-            + '<button class="delete-button"></button>'
-            +'<p class="body-of-card">'
-            + body + '</p>'
-            + '<button class="upvote"></button>' 
-            + '<button class="downvote"></button>' 
-            + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + currentQuality + '</span>' + '</p>'
-            + '<hr>' 
-            + '</div>';
+        + title +  '</h2>'
+        + '<button class="delete-button"></button>'
+        +'<p class="body-of-card">'
+        + body + '</p>'
+        + '<button class="upvote"></button>' 
+        + '<button class="downvote"></button>' 
+        + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + currentQuality + '</span>' + '</p>'
+        + '<hr>' 
+        + '</div>';
 };
 
 
@@ -73,18 +75,36 @@ function setQualityRating(qualityValue) {
 function upvoteFunc() {
     var thisArticleId = $(event.target).parent().data('unid');
     var wholeArray = fetchArray();
-
     var upThisArticle = wholeArray.forEach(function (anything) {
-      if (anything.id == thisArticleId) {
+      if (anything.id == thisArticleId && anything.quality < 4) {
         anything.quality++
-        return anything.quality;
       }
     })
-    console.log('test ' + upThisArticle);
-
-
+    writeLocalStorageArray(wholeArray);
+    pageLoadDisplay();
 }
 
+function downvoteFunc() {
+    var thisArticleId = $(event.target).parent().data('unid');
+    var wholeArray = fetchArray();
+    var upThisArticle = wholeArray.forEach(function (anything) {
+      if (anything.id == thisArticleId && anything.quality > 0) {
+        anything.quality--
+      }
+    })
+    writeLocalStorageArray(wholeArray);
+    pageLoadDisplay();
+}
+
+function deleteFunc() {
+    var thisArticleId = $(event.target).parent().data('unid');
+    var wholeArray = fetchArray();
+    var newWholeArray = wholeArray.filter(function (anything) {
+        return anything.id !== thisArticleId
+    })
+    writeLocalStorageArray(newWholeArray);
+    pageLoadDisplay();
+}
     // then return the index value 
     // increment it
     // Save it or send it where it needs to go
