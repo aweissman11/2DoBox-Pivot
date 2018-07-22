@@ -21,7 +21,7 @@ body {
 div that our entire page is nested in. possibly
 use it to creat a grid with minmax for
 responsive layout or could nix it and use
-media queries*/
+media queries or do grid and media queries!!!*/
 /*.container-box {
     margin: 0;
 }*/
@@ -29,18 +29,17 @@ media queries*/
 .top-box {
     background-color: #e5f3f2;
     box-sizing: border-box;
-    /*may not want to use pixels*/
     display: flex;
-    height: 20.3em;
     flex-direction: column;
+    height: 20.3em;
     /*text-align: center;*//*took this off 
     and refactored*/
 }
 
 h1 {
-    font-family: Roboto Slab;
     color: #6d6e71;
     display: inline-block;
+    font-family: Roboto Slab;
     font-size: 3.2em;
     margin: .5em 0 .5em 0em;
     text-align: center;
@@ -48,18 +47,14 @@ h1 {
 
 .idea {
     color: #00a79d;
-    position: relative;
     margin-left: 12em;
 }
 
 #title-input, #body-input {
-    align-items: center;
-    display: flex;
-    height: 2em;
-    justify-content: space-between;
-    width: 45%;
     border: 2px solid lightgrey;
+    height: 2em;
     outline: none;
+    width: 45%;
 }
 
 #title-input {
@@ -68,6 +63,28 @@ h1 {
 
 #body-input {
     margin-bottom: 1em;
+}
+
+.save-btn {
+    background-color: #00a79d;
+    border: none;
+    color: #fff;
+    font-size: 130%;
+    height: 2em;
+    width: 45.45%;
+    flex-direction: right;
+    margin-left: 27.3vw;
+}
+
+.save-btn:hover {
+    background-color: #045e55;
+}
+
+#search-input {
+    height: 30px;
+    margin-top: 50px;
+    width: 45%;
+    outline: none;
 }
 
 /*#body-input {
@@ -87,26 +104,8 @@ lightgrey upon clicking in input box*/
 
 
 
-#search-input {
-    height: 30px;
-    margin-top: 50px;
-    width: 45%;
-    outline: none;
-}
 
-.save-btn {
-    background-color: #00a79d;
-    border: none;
-    color: #fff;
-    font-size: 130%;
-    height: 2em;
-    width: 31.3em;
-    margin-left: 19em;
-}
 
-.save-btn:hover {
-    background-color: #045e55;
-}
 
 input {
     align-items: center;
@@ -219,5 +218,10 @@ button {
     #search-input {
         border: solid #999 1px;
     }
+
+    /*.top-box {
+        display: flex;
+        flex-flow: column;
+    }*/
 }
 
