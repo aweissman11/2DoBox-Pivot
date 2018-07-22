@@ -5,6 +5,10 @@ $('.save-btn').on('click', createIdea);
 $('.bottom-box').on('click', '.upvote', upvoteFunc);
 $('.bottom-box').on('click', '.downvote', downvoteFunc);
 $('.bottom-box').on('click', '.delete-button', deleteFunc);
+$('.bottom-box').on('keyup', '.title-of-card', editContent);
+$('.bottom-box').on('keyup', '.body-of-card', editContent);
+$('.bottom-box').on('keydown', '.title-of-card', enterKeySubmits);
+$('.bottom-box').on('keydown', '.body-of-card', enterKeySubmits);
 
 pageLoadDisplay();
 
@@ -53,10 +57,10 @@ function prependCard(cardObject) {
 
 function newCard(id , title , body , quality) {
     var currentQuality = setQualityRating(quality);
-    return '<div data-unid=' + id + ' class="card-container"><h2 class="title-of-card">'  
+    return '<div data-unid=' + id + ' class="card-container"><h2 class="title-of-card" contenteditable>'  
         + title +  '</h2>'
         + '<button class="delete-button"></button>'
-        +'<p class="body-of-card">'
+        +'<p class="body-of-card" contenteditable>'
         + body + '</p>'
         + '<button class="upvote"></button>' 
         + '<button class="downvote"></button>' 
@@ -105,120 +109,48 @@ function deleteFunc() {
     writeLocalStorageArray(newWholeArray);
     pageLoadDisplay();
 }
-    // then return the index value 
-    // increment it
-    // Save it or send it where it needs to go
-    // maybe:
-    //     if (downvoteBtn) {
-    //             ?? (this.qualityStringIndex.index > qualityStringIndex.length ? this.qualityStringIndex.index++)???
-    //         if (this.qualityStringIndex.index < qualityStringIndex.length) {
-    //         this.qualityStringIndex--;
-    //         }
-    //     } else if (upvoteBtn) {
-    //         if (this.qualityStringIndex.index < qualityStringIndex.length) {
-    //         this.qualityStringIndex++;
-    //         }
-    //     }
-    // return this.qualityStringIndex.text()
 
-// var title = $('#title-input').val();
-// var body = $('#body-input').val();
-// var numCards = 0;
-// var qualityVariable = "swill";
+function editContent() {
+    var thisArticleId = $(event.target).parent().data('unid');
+    var clickedText = $(event.target).text();
+    var wholeArray = fetchArray();
+    var clickedElementClass = $(event.target).attr('class');
+    var changeText = wholeArray.filter(function (anything) {
+      if (anything.id == thisArticleId && clickedElementClass === 'body-of-card') {
+        anything.body = clickedText;
+      } else if (anything.id == thisArticleId && clickedElementClass === 'title-of-card') {
+        anything.title = clickedText;
+      }
+    })
+    writeLocalStorageArray(wholeArray);
+}
 
-//This is the stringAndStore function
-//This shouldn't be an anonymous function
-// $.each(localStorage, function(key) {
-//     var cardData = JSON.parse(this);
-//     numCards++;
-// });
+function bodyOrTitle(anything) {
+    if (anything.id == thisArticleId && clickedElementClass === 'body-of-card') {
+      anything.body = clickedText;
+    } else if (anything.id == thisArticleId && clickedElementClass === 'title-of-card') {
+      anything.title = clickedText;
+    }
+}
 
-// var localStoreCard = function() {
-//     var cardString = JSON.stringify(cardObject());
-//     localStorage.setItem('card' + numCards  , cardString);
-// }
+function enterKeySubmits(e) {
+  if (e.keyCode == 13 && !e.shiftKey) {
+      e.preventDefault();
+      e.target.blur();
+  }
+};
 
-//Anonymous
-//This needs to be fixed
-//I think return is causing the page to refresh. 
-//We also need this to run the function that saves the input
-// $('.save-btn').on('click', function(event) {
-//     event.preventDefault();
-//     if ($('#title-input').val() === "" || $('#body-input').val() === "") {
-//        return false;
-//     };  
+// function editBodyText() {
+//   var thisArticleId = $(event.target).parent().data("unid");
+//   var thisBodyText = $(event.target).text();
+  // var changeThisArticle = arrayOfObject.filter(function (anything) {
+  //   if (anything.uniqueID == thisArticleId) {
+  //     anything.body = thisBodyText;
+  //   }
+  // })
 
-//     numCards++;
-//     $( ".bottom-box" ).prepend(newCard('card' + numCards, $('#title-input').val(), $('#body-input').val(), qualityVariable)); 
-//     localStoreCard();
-//     $('form')[0].reset();
-// });
-
-
-// Use indexes here instead of the words.
-// That way we can just increment them instead of testing for the word match every single time
-// Something like: 
-
-// Fire this on one of the button clicks
-
-
-
-
-
-
-
-//this should also not be an anonymous function
-// $(".bottom-box").on('click', function(event){
-//     var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-//     var qualityVariable;
-
-//     if (event.target.className === "upvote" || event.target.className === "downvote"){
-
-//         if (event.target.className === "upvote" && currentQuality === "plausible"){
-//             qualityVariable = "genius";
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-               
-//         } else if (event.target.className === "upvote" && currentQuality === "swill") {
-//             qualityVariable = "plausible";
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-               
-//         } else if (event.target.className === "downvote" && currentQuality === "plausible") {
-//             qualityVariable = "swill"
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-
-//         } else if (event.target.className === "downvote" && currentQuality === "genius") {
-//             qualityVariable = "plausible"
-//             $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-
-//         } else if (event.target.className === "downvote" && currentQuality === "swill") {
-//             qualityVariable = "swill";
-        
-//         } else if (event.target.className === "upvote" && currentQuality === "genius") {
-//             qualityVariable = "genius";
-//         }
-
-
-//     //this should be its own function
-//     var cardHTML = $(event.target).closest('.card-container');
-//     var cardHTMLId = cardHTML[0].id;
-//     var cardObjectInJSON = localStorage.getItem(cardHTMLId);
-//     var cardObjectInJS = JSON.parse(cardObjectInJSON);
-
-//     cardObjectInJS.quality = qualityVariable;
-
-//     var newCardJSON = JSON.stringify(cardObjectInJS);
-//     localStorage.setItem(cardHTMLId, newCardJSON);
-//     }
-   
-//    //This should absolutely be it's own function
-//     else if (event.target.className === "delete-button") {
-//         var cardHTML = $(event.target).closest('.card-container').remove();
-//         var cardHTMLId = cardHTML[0].id;
-//         localStorage.removeItem(cardHTMLId);
-//     }
-// });
-      
-
+//   stringAndStore(arrayOfObject);
+// };
 
 
 
