@@ -1,84 +1,43 @@
-/*The cards exist solely in the js, so we'll need
-to take advantage of the dev tools to edit those
-the text of word quality should be the roboto and the
-text of the actual quality rating should be sans*/
 
-/*this should probabaly be at the top*/
 body {
     box-sizing: border-box;
     margin: 0;
 }
 
 .container {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    font-family: 'Roboto Slab', serif;
-    font-family: 'Open Sans', sans-serif;
+    justify-content: center;
 }
-
-/*what is this? ...I looks like an extra 
-div that our entire page is nested in. possibly
-use it to creat a grid with minmax for
-responsive layout or could nix it and use
-media queries or do grid and media queries!!!*/
-/*.container-box {
-    margin: 0;
-}*/
 
 .top-box {
     background-color: #e5f3f2;
+    background-size: 100% 300px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    height: 20.3em;
-    /*text-align: center;*//*took this off 
-    and refactored*/
+    height: 355px;
+}
+
+form {
+    max-width: 900px;
+    margin: auto;
 }
 
 h1 {
-    color: #6d6e71;
-    display: inline-block;
-    flex-direction: right;
+    color: #00a79d;
     font-family: Roboto Slab;
     font-size: 3.2em;
-    margin-left: 1em;
     text-align: center;
-    /*height: 1.5em;*/
-    /*width: 45%;*/
-    width: 10vw;
-    height: 1vh;
-    justify-content: center;
-
 }
 
-.idea {
-    border: 3px solid red;
-    color: #00a79d;
-    /*height: 2vh;*/
-    width: 2.3em;
-    margin-left: 36vw;
-}
-/*add .box because there was no 
-selector*/
 .box {
-    border: 3px solid green;
+    color: #6d6e71;
 }
-
-#search-input {
-    border: 2px solid lightgrey;
-    height: 30px;
-    margin-top: 2em;
-    width: 45%;
-    outline: none;
-}
-
 
 #title-input, #body-input {
     border: 2px solid lightgrey;
     height: 2em;
     outline: none;
-    width: 45%;
+    width: 80%;
 }
 
 #title-input {
@@ -91,67 +50,54 @@ selector*/
 
 .save-btn {
     background-color: #00a79d;
-    border: none;
-    color: #fff;
-    font-size: 130%;
+    color: #ffffff;
+    font-size: 1.5em;
     height: 2em;
-    width: 45.45%;
-    flex-direction: right;
-    margin-left: 27.3vw;
+    width: calc(80% + 7px);
+    margin-left: calc(10% - 4px);
+    margin-right: 10%;
 }
 
 .save-btn:hover {
     background-color: #045e55;
 }
 
+.cards-div {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+}
+
+#search-input {
+    border: 2px solid lightgrey;
+    height: 30px;
+    margin-top: 2em;
+    width: 80%;
+    outline: none;
+}
+
+input {
+    display: flex;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    margin: auto;
+}
 
 input::placeholder {
     padding-left: .38em;
     font-size: 1.4em;
 }
 
-/*#body-input {
-    align-items: center;
-    display: flex;
-    height: 2em;
-    justify-content: space-between;
-    width: 45%;
-    border: 
-}*/
-/*combined with #title-input to dry up*/
-
-/*figure our how to put a margin left
-and resize font of placeholder text
-also change placeholder text color to
-lightgrey upon clicking in input box*/
-
-
-
-
-
-
-input {
-    align-items: center;
-    display: flex;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 100%;
-    justify-content: space-between;
-    margin: auto;
-}
-
-
-
 .card-container {
     margin: auto;
     position: relative;
-    width: 45%;
+    width: 80%;
 }
 
 .card {
     background-color: #ffffff;
     height: auto;
     margin: auto;
-    width: 45%;
 }
 
 .title-of-card {
@@ -233,18 +179,16 @@ button {
 }
 
 @media(max-width: 640px){
-
-    .card-container {
-        width: 85%;
+    .top-box {
+        height: 420px;
+    }
+    #body-input {
+        height: 6em;
+    }
+    #body-input::placeholder {
+        position: relative;
+        bottom: 25px;
     }
 
-    #search-input {
-        border: solid #999 1px;
-    }
-
-    /*.top-box {
-        display: flex;
-        flex-flow: column;
-    }*/
 }
 
