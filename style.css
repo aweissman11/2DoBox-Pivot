@@ -39,16 +39,40 @@ media queries or do grid and media queries!!!*/
 h1 {
     color: #6d6e71;
     display: inline-block;
+    flex-direction: right;
     font-family: Roboto Slab;
     font-size: 3.2em;
-    margin: .5em 0 .5em 0em;
+    margin-left: 1em;
     text-align: center;
+    /*height: 1.5em;*/
+    /*width: 45%;*/
+    width: 10vw;
+    height: 1vh;
+    justify-content: center;
+
 }
 
 .idea {
+    border: 3px solid red;
     color: #00a79d;
-    margin-left: 12em;
+    /*height: 2vh;*/
+    width: 2.3em;
+    margin-left: 36vw;
 }
+/*add .box because there was no 
+selector*/
+.box {
+    border: 3px solid green;
+}
+
+#search-input {
+    border: 2px solid lightgrey;
+    height: 30px;
+    margin-top: 2em;
+    width: 45%;
+    outline: none;
+}
+
 
 #title-input, #body-input {
     border: 2px solid lightgrey;
@@ -80,11 +104,10 @@ h1 {
     background-color: #045e55;
 }
 
-#search-input {
-    height: 30px;
-    margin-top: 50px;
-    width: 45%;
-    outline: none;
+
+input::placeholder {
+    padding-left: .38em;
+    font-size: 1.4em;
 }
 
 /*#body-input {
