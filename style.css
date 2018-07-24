@@ -225,6 +225,14 @@ p {
     background-color: #F1F1F1;
 }
 
+.quality {
+    font-family: Roboto Slab;
+}
+
+.qualityVariable {
+    font-family: Open Sans;
+}
+
 @media(max-width: 640px){
     .top-box {
         height: 420px;
