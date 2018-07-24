@@ -48,14 +48,28 @@ h1 {
     margin-bottom: 1em;
 }
 
-.save-btn {
+button {
+    background-color: transparent;
+    border: none;
+}
+
+.btn {
     background-color: #00a79d;
     color: #ffffff;
     font-size: 1.5em;
-    height: 2em;
     width: calc(80% + 7px);
     margin-left: calc(10% - 4px);
     margin-right: 10%;
+}
+
+.save-btn {
+    height: 2em;
+}
+
+.show-rest-btn {
+    height: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .save-btn:hover {
@@ -123,11 +137,6 @@ p {
     color: #939598;
     font-family: 'Open Sans', sans-serif;
     font-size: 100%;
-}
-
-button {
-    background-color: transparent;
-    border: none;
 }
 
 .upvote {
