@@ -2,6 +2,7 @@
 body {
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Open sans', sans-serif;
 }
 
 .container {
@@ -74,6 +75,19 @@ button {
 
 .save-btn:hover {
     background-color: #045e55;
+}
+
+.importance-btns {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.importance:hover {
+    color: #00a79d;
+}
+
+.importance {
+    margin: 5px;
 }
 
 .cards-div {
