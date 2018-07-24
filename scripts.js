@@ -11,8 +11,20 @@ $('.bottom-box').on('keyup', '.body-of-card', editContent);
 $('.bottom-box').on('keydown', '.title-of-card', enterKeySubmits);
 $('.bottom-box').on('keydown', '.body-of-card', enterKeySubmits);
 $('#search-input').on('keyup', searchFunc);
+$('.show-rest-btn').on('click', taskBtnPurpose);
+$('.importance').on('click', filterImportance);
 
 pageLoadDisplay();
+
+function filterImportance() {
+  var thisImportance = $(event.target).text();
+  console.log(thisImportance);
+  console.log($('.bottom-box').children())
+  // if ($('.bottom-box').children().className !== thisImportance) {
+
+  // }
+}
+
 
 function pageLoadDisplay() {
     var storedIdeasArray = fetchArray();
@@ -20,6 +32,31 @@ function pageLoadDisplay() {
     storedIdeasArray.forEach(function(card) {
         prependCard(card);
     })
+    hideTenth();
+};
+
+function toggleShowRestButton () {
+ if ($('.bottom-box').children().length >= 10) {
+   $('.show-rest-btn').show();
+ } else {
+   $('.show-rest-btn').hide();
+ }
+};
+
+function taskBtnPurpose() {
+  event.preventDefault();
+  if ($('.show-rest-btn').text() == 'Show less') {
+    hideTenth();
+    $('.show-rest-btn').text('Show All Cards');
+  } else {
+    $('.bottom-box').children().show();
+    $('.show-rest-btn').text('Show less');
+  }
+}
+
+function hideTenth() {
+ $('.bottom-box').children(":gt(9)").hide();
+ toggleShowRestButton();
 };
 
 function fetchArray() {
@@ -38,6 +75,8 @@ function createIdea(e) {
     storedIdeasArray.push(newIdeaCard);
     writeLocalStorageArray(storedIdeasArray);
     prependCard(newIdeaCard);
+    titleInput = '';
+    bodyInput = '';
 }
 
 function createCardObject(title, body) {
