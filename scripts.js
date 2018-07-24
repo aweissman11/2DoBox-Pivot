@@ -5,10 +5,12 @@ $('.save-btn').on('click', createIdea);
 $('.bottom-box').on('click', '.upvote', upvoteFunc);
 $('.bottom-box').on('click', '.downvote', downvoteFunc);
 $('.bottom-box').on('click', '.delete-button', deleteFunc);
+$('.bottom-box').on('click', '.complete-btn', completeFunc);
 $('.bottom-box').on('keyup', '.title-of-card', editContent);
 $('.bottom-box').on('keyup', '.body-of-card', editContent);
 $('.bottom-box').on('keydown', '.title-of-card', enterKeySubmits);
 $('.bottom-box').on('keydown', '.body-of-card', enterKeySubmits);
+$('#search-input').on('keyup', searchFunc);
 
 pageLoadDisplay();
 
@@ -43,6 +45,7 @@ function createCardObject(title, body) {
     this.body = body;
     this.quality = 2;
     this.id = Date.now();
+    this.classes = '';
 }
 
 function writeLocalStorageArray(objectArray) {
@@ -51,23 +54,39 @@ function writeLocalStorageArray(objectArray) {
 }
 
 function prependCard(cardObject) {
-    var thisNewCard = newCard(cardObject.id, cardObject.title, cardObject.body, cardObject.quality);
+    var thisNewCard = newCard(cardObject.id, cardObject.title, cardObject.body, cardObject.quality, cardObject.classes);
     $('.bottom-box').prepend(thisNewCard);
 }
 
-function newCard(id , title , body , quality) {
+function newCard(id , title , body , quality, classes) {
     var currentQuality = setQualityRating(quality);
-    return '<div data-unid=' + id + ' class="card-container"><h2 class="title-of-card" contenteditable>'  
-        + title +  '</h2>'
-        + '<button class="delete-button"></button>'
-        +'<p class="body-of-card" contenteditable>'
-        + body + '</p>'
-        + '<button class="upvote"></button>' 
-        + '<button class="downvote"></button>' 
-        + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + currentQuality + '</span>' + '</p>'
-        + '<hr>' 
-        + '</div>';
+    return '<div data-unid=' + id + ' class="card-container' + classes + '">'
+            + '<h2 class="title-of-card' + classes + '" contenteditable>'  
+            + title +  '</h2>'
+            + '<button class="delete-button"></button>'
+            +'<p class="body-of-card" contenteditable>'
+            + body + '</p>'
+            + '<button class="upvote"></button>' 
+            + '<button class="downvote"></button>'
+            + '<button class="complete-btn"></button>' 
+            + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + currentQuality + '</span>' + '</p>'
+            + '<hr>' 
+            + '</div>';
 };
+
+function completeFunc() {
+  var thisArticleId = $(event.target).parent().data('unid');
+  var wholeArray = fetchArray();
+  var upThisArticle = wholeArray.forEach(function (anything) {
+    if (anything.id == thisArticleId && anything.classes === '') {
+      anything.classes = ' completed';
+    } else if (anything.id == thisArticleId) {
+      anything.classes = '';
+    }
+  })
+  writeLocalStorageArray(wholeArray);
+  pageLoadDisplay();
+}
 
 
 function setQualityRating(qualityValue) {
@@ -140,22 +159,70 @@ function enterKeySubmits(e) {
   }
 };
 
-// function editBodyText() {
-//   var thisArticleId = $(event.target).parent().data("unid");
-//   var thisBodyText = $(event.target).text();
-  // var changeThisArticle = arrayOfObject.filter(function (anything) {
-  //   if (anything.uniqueID == thisArticleId) {
-  //     anything.body = thisBodyText;
-  //   }
-  // })
-
-//   stringAndStore(arrayOfObject);
-// };
+function searchFunc() {
+  var value = $(this).val().toLowerCase();
+  $('.bottom-box div').filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+};
 
 
 
 
 
+// Marking a TODO as completed
+// When viewing the TODO list:
+
+// Each TODO in the list should have a button called Completed Task.
+// When a user clicks the Completed Task button, the idea should be either grayed out and/or shown with a strike through text.
+// On reloading the page, the completed TODOs should be exempted (but not deleted) from the list.
+// When the user clicks the show completed TODOs, the completed TODOs should be loaded back onto the top of the TODO list.
+// Importance
+// Each TODO should be given a level of importance.
+
+// As a user, I should be able to change the level of importance by up-voting or down-voting that specific TODO.
+// Each TODO should start with a level of Normal.
+// Levels of importance are as follows:
+
+// 1) Critical
+
+// 2) High
+
+// 3) Normal
+
+// 4) Low
+
+// 5) None
+
+// The change of importance should persist after a page refresh.
+// Recent TODOs
+// The application should only show the ten most recent TODOS.
+
+// The application should contain a button labeled Show more TODOs ....
+// When a user clicks on the Show more TODOs... button, this list should load additional messages from the past.
+// Filter by Importance
+// The application should allow users to filter the TODO list based on level of importance.
+
+// Your application should have 5 buttons corresponding to each level of importance (Critical, High, Normal, Low, and None).
+// When one of the filter buttons is clicked, the TODO list should only display TODOs with the selected importance.
+
+
+
+// Extensions
+// Character Counter
+// The application is able to count the number of characters inside of the input field in real time.
+
+// As the user types, the character count should increment up.
+// If the user deletes characters, then the character count should decrease.
+// Submit button disabled based on character count
+// The submit button should be disabled when there is not valid content in both input fields and if the input field character count exceeds 120 characters.
+
+// TODO Due Dates
+// When viewing the TODO list:
+
+// Each TODO should have an option to set a due date for the specific TODO.
+// Once a TODO’s due date is reached, the TODO should show a visual indication that it is past due if it has not been completed.
+// Note: TimeZones are hard - consider using a library like MomentJS
 
 
 
