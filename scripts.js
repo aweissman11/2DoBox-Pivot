@@ -9,8 +9,16 @@ $('.bottom-box').on('keyup', '.title-of-card', editContent);
 $('.bottom-box').on('keyup', '.body-of-card', editContent);
 $('.bottom-box').on('keydown', '.title-of-card', enterKeySubmits);
 $('.bottom-box').on('keydown', '.body-of-card', enterKeySubmits);
+$('#search-input').on('keyup', searchFunc);
 
 pageLoadDisplay();
+
+function searchFunc() {
+  var value = $(this).val().toLowerCase();
+  $('.bottom-box div').filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+};
 
 function pageLoadDisplay() {
     var storedIdeasArray = fetchArray();
