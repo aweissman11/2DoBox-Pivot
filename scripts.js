@@ -12,8 +12,28 @@ $('.bottom-box').on('keydown', '.title-of-card', enterKeySubmits);
 $('.bottom-box').on('keydown', '.body-of-card', enterKeySubmits);
 $('#search-input').on('keyup', searchFunc);
 $('.show-rest-btn').on('click', taskBtnPurpose);
+$('.importance').on('click', filterImportance);
 
 pageLoadDisplay();
+
+function filterImportance() {
+  var thisImportance = $(event.target).text();
+  console.log(thisImportance);
+  console.log($('.bottom-box').children())
+  // if ($('.bottom-box').children().className !== thisImportance) {
+
+  // }
+}
+
+
+function pageLoadDisplay() {
+    var storedIdeasArray = fetchArray();
+    $('.bottom-box').text('');
+    storedIdeasArray.forEach(function(card) {
+        prependCard(card);
+    })
+    hideTenth();
+};
 
 function toggleShowRestButton () {
  if ($('.bottom-box').children().length >= 10) {
@@ -37,15 +57,6 @@ function taskBtnPurpose() {
 function hideTenth() {
  $('.bottom-box').children(":gt(9)").hide();
  toggleShowRestButton();
-};
-
-function pageLoadDisplay() {
-    var storedIdeasArray = fetchArray();
-    $('.bottom-box').text('');
-    storedIdeasArray.forEach(function(card) {
-        prependCard(card);
-    })
-    hideTenth();
 };
 
 function fetchArray() {
