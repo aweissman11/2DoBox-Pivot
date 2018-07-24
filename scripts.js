@@ -5,6 +5,7 @@ $('.save-btn').on('click', createIdea);
 $('.bottom-box').on('click', '.upvote', upvoteFunc);
 $('.bottom-box').on('click', '.downvote', downvoteFunc);
 $('.bottom-box').on('click', '.delete-button', deleteFunc);
+$('.bottom-box').on('click', '.complete-btn', completeFunc);
 $('.bottom-box').on('keyup', '.title-of-card', editContent);
 $('.bottom-box').on('keyup', '.body-of-card', editContent);
 $('.bottom-box').on('keydown', '.title-of-card', enterKeySubmits);
@@ -12,13 +13,6 @@ $('.bottom-box').on('keydown', '.body-of-card', enterKeySubmits);
 $('#search-input').on('keyup', searchFunc);
 
 pageLoadDisplay();
-
-function searchFunc() {
-  var value = $(this).val().toLowerCase();
-  $('.bottom-box div').filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-  });
-};
 
 function pageLoadDisplay() {
     var storedIdeasArray = fetchArray();
@@ -51,6 +45,7 @@ function createCardObject(title, body) {
     this.body = body;
     this.quality = 2;
     this.id = Date.now();
+    this.classes = '';
 }
 
 function writeLocalStorageArray(objectArray) {
@@ -59,24 +54,39 @@ function writeLocalStorageArray(objectArray) {
 }
 
 function prependCard(cardObject) {
-    var thisNewCard = newCard(cardObject.id, cardObject.title, cardObject.body, cardObject.quality);
+    var thisNewCard = newCard(cardObject.id, cardObject.title, cardObject.body, cardObject.quality, cardObject.classes);
     $('.bottom-box').prepend(thisNewCard);
 }
 
-function newCard(id , title , body , quality) {
+function newCard(id , title , body , quality, classes) {
     var currentQuality = setQualityRating(quality);
-    return '<div data-unid=' + id + ' class="card-container"><h2 class="title-of-card" contenteditable>'  
-        + title +  '</h2>'
-        + '<button class="delete-button"></button>'
-        +'<p class="body-of-card" contenteditable>'
-        + body + '</p>'
-        + '<button class="upvote"></button>' 
-        + '<button class="downvote"></button>'
-        + '<button class="complete-task"></button>' 
-        + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + currentQuality + '</span>' + '</p>'
-        + '<hr>' 
-        + '</div>';
+    return '<div data-unid=' + id + ' class="card-container' + classes + '">'
+            + '<h2 class="title-of-card' + classes + '" contenteditable>'  
+            + title +  '</h2>'
+            + '<button class="delete-button"></button>'
+            +'<p class="body-of-card" contenteditable>'
+            + body + '</p>'
+            + '<button class="upvote"></button>' 
+            + '<button class="downvote"></button>'
+            + '<button class="complete-btn"></button>' 
+            + '<p class="quality">' + 'quality: ' + '<span class="qualityVariable">' + currentQuality + '</span>' + '</p>'
+            + '<hr>' 
+            + '</div>';
 };
+
+function completeFunc() {
+  var thisArticleId = $(event.target).parent().data('unid');
+  var wholeArray = fetchArray();
+  var upThisArticle = wholeArray.forEach(function (anything) {
+    if (anything.id == thisArticleId && anything.classes === '') {
+      anything.classes = ' completed';
+    } else if (anything.id == thisArticleId) {
+      anything.classes = '';
+    }
+  })
+  writeLocalStorageArray(wholeArray);
+  pageLoadDisplay();
+}
 
 
 function setQualityRating(qualityValue) {
@@ -149,17 +159,14 @@ function enterKeySubmits(e) {
   }
 };
 
-// function editBodyText() {
-//   var thisArticleId = $(event.target).parent().data("unid");
-//   var thisBodyText = $(event.target).text();
-  // var changeThisArticle = arrayOfObject.filter(function (anything) {
-  //   if (anything.uniqueID == thisArticleId) {
-  //     anything.body = thisBodyText;
-  //   }
-  // })
+function searchFunc() {
+  var value = $(this).val().toLowerCase();
+  $('.bottom-box div').filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+};
 
-//   stringAndStore(arrayOfObject);
-// };
+
 
 
 

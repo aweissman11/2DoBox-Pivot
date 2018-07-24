@@ -89,9 +89,9 @@ input::placeholder {
 }
 
 .card-container {
-    margin: auto;
+    margin: 5px auto;
     position: relative;
-    width: 80%;
+    width: 81%;
 }
 
 .card {
@@ -172,7 +172,7 @@ button {
     background-image: url(./images/delete-hover.svg);
 }
 
-.complete-task {
+.complete-btn {
     background-image: url(./images/completed.svg);
     background-size: cover;
     height: 18px;
@@ -181,8 +181,13 @@ button {
     margin-right: 8px;
 }
 
-.complete-task:hover {
+.complete-btn:hover {
     background-image: url(./images/completed-hover.svg);
+}
+
+.completed {
+    text-decoration: line-through;
+    background-color: #F1F1F1;
 }
 
 @media(max-width: 640px){
