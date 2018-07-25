@@ -128,6 +128,12 @@ textarea::placeholder {
     font-size: 1.4em;
 }
 
+input:focus::-webkit-input-placeholder { 
+    color:transparent; }
+
+textarea:focus::-webkit-input-placeholder {
+    color:transparent; }
+
 .card-container {
     margin: 5px auto;
     position: relative;
