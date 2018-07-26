@@ -36,6 +36,7 @@ function createIdea(e) {
     prependCard(newIdeaCard);
     $('#title-input').val('');
     $('#body-input').val('');
+    hideTenth();
 };
 
 function createCardObject(title, body) {
@@ -46,15 +47,15 @@ function createCardObject(title, body) {
     this.classes = '';
 };
 
-function writeLocalStorageArray(objectArray) {
-  var stringedObjectArray = JSON.stringify(objectArray);
-  localStorage.setItem('stored-array', stringedObjectArray);
-};
-
 function fetchArray() {
     var retrieveIdea = localStorage.getItem('stored-array');
     var parsedRetrievedIdea = JSON.parse(retrieveIdea);
     return (parsedRetrievedIdea !== null ? parsedRetrievedIdea : []);
+};
+
+function writeLocalStorageArray(objectArray) {
+  var stringedObjectArray = JSON.stringify(objectArray);
+  localStorage.setItem('stored-array', stringedObjectArray);
 };
 
 function prependCard(cardObject) {
