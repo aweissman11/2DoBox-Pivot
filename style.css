@@ -67,14 +67,18 @@ button {
     height: 2em;
 }
 
-.show-rest-btn {
-    height: 1.5em;
-    margin-top: 20px;
-    margin-bottom: 40px;
+.save-btn:disabled {
+    background-color: #045e55;
 }
 
 .save-btn:hover {
     background-color: #045e55;
+}
+
+.show-rest-btn {
+    height: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .importance-btns {
