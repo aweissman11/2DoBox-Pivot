@@ -25,7 +25,6 @@ function pageLoadDisplay() {
     hideTenth();
 };
 
-//This runs when you hit the save button
 function createIdea(e) {
     e.preventDefault();
     storedIdeasArray = fetchArray();
@@ -165,8 +164,6 @@ function completeFunc() {
   writeLocalStorageArray(wholeArray);
   pageLoadDisplay();
 };
-
-
 
 function upvoteFunc() {
     var thisArticleId = $(event.target).parent().data('unid');

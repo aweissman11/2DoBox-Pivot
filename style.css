@@ -19,8 +19,8 @@ body {
 }
 
 form {
-    max-width: 900px;
     margin: auto;
+    max-width: 900px;
 }
 
 h1 {
@@ -96,16 +96,16 @@ button {
 
 .cards-div {
     width: 100%;
-    max-width: 900px;
     margin: auto;
+    max-width: 900px;
 }
 
 #search-input {
     border: 2px solid lightgrey;
     height: 30px;
     margin-top: 2em;
-    width: 80%;
     outline: none;
+    width: 80%;
 }
 
 input {
@@ -116,8 +116,8 @@ input {
 }
 
 input::placeholder {
-    padding-left: .38em;
     font-size: 1.4em;
+    padding-left: .38em;
 }
 
 textarea {
@@ -128,8 +128,8 @@ textarea {
 }
 
 textarea::placeholder {
-    padding-left: .38em;
     font-size: 1.4em;
+    padding-left: .38em;
 }
 
 input:focus::-webkit-input-placeholder { 
@@ -221,9 +221,9 @@ p {
     background-image: url(./images/completed.svg);
     background-size: cover;
     height: 18px;
-    width: 18px;
     float: right;
     margin-right: 8px;
+    width: 18px;
 }
 
 .complete-btn:hover {
@@ -244,11 +244,11 @@ p {
 }
 
 @media(max-width: 640px){
-    .top-box {
-        height: 420px;
-    }
     #body-input {
         height: 6em;
+    }
+    .top-box {
+        height: 420px;
     }
 
 }
